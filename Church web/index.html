@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official website of Karuvatta St. Mary’s Orthodox Suriyani Church. Events, committee, services and announcements.">
+    <title>Karuvatta St. Mary’s Orthodox Suriyani Church - Prototype</title>
+
+    <!-- Google Fonts: Exo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" rel="stylesheet">
+    </noscript>
+
+    
+    <style>
+/* Global Styles */
+:root {
+  --primary-color: #1e3a8a;
+  --accent-color: #f59e0b;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+  --secondary-text: #64748b;
+  --border-radius: 16px;
+  --spacing-md: 2rem;
+  --font-family: "Exo", sans-serif;
+  --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+  --transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease,
+    background 0.3s ease;
+}
+
+@keyframes gradientBg {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation / Language Toggle */
+.top-nav {
+  padding: 30px 0 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lang-switch {
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 4px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  padding: 6px 14px;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.lang-btn.active {
+  background-color: white;
+  color: var(--primary-color);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.divider {
+  display: none;
+  /* Hide divider for pill toggle style */
+}
+
+/* Header */
+.main-header {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  padding: 0 10px;
+}
+
+.church-name {
+  font-size: 2rem;
+  /* Larger impact */
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1.35;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+  /* Modern tight tracking */
+}
+
+.logo-wrapper {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.church-logo {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 4px 10px rgba(30, 58, 138, 0.2));
+}
+
+/* Menu Bar */
+.main-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 2rem;
+  background: var(--glass-bg);
+  padding: 12px;
+  border-radius: 16px;
+  /* Reduced from 100px to fix click issues */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  z-index: 100;
+  /* Ensure menu is above content */
+  box-shadow: var(--shadow-soft);
+}
+
+@media (min-width: 600px) {
+  .main-menu {
+    justify-content: center;
+  }
+}
+
+.menu-item {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 10px 18px;
+  border-radius: 12px;
+  color: var(--secondary-text);
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    background 0.3s ease,
+    color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: all 0.6s ease;
+}
+
+.menu-item:hover::before {
+  left: 100%;
+}
+
+.menu-item.active {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 25px rgba(30, 58, 138, 0.3),
+    inset 0 2px 5px rgba(255, 255, 255, 0.4);
+}
+
+.menu-item:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* Views Logic */
+.view-section {
+  display: block;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.view-section.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Image Frames & Placeholders */
+.image-frame {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #e2e8f0;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 2rem;
+}
+
+.image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.image-frame.round {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  width: 120px;
+  margin: 0 auto 1.5rem;
+  border: 4px solid white;
+  box-shadow: var(--shadow-soft);
+}
+
+.placeholder-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--text-color); /* Improved contrast from --secondary-text */
+  z-index: 1;
+}
+
+.placeholder-overlay i {
+  font-size: 2rem;
+}
+
+.placeholder-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-image-wrapper {
+  margin-bottom: 3rem;
+}
+
+/* Introduction */
+.intro-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 0 16px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.intro-section p {
+  color: var(--secondary-text);
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* CTA Button */
+.cta-button {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.5) 0%,
+    rgba(251, 191, 36, 0.5) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 32px;
+  border-radius: 100px;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow:
+    0 10px 25px rgba(245, 158, 11, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+.cta-button:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 15px 35px rgba(245, 158, 11, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+.cta-button:active {
+  transform: scale(0.97);
+}
+
+/* Contributions Section */
+.contributions-section {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+  transition: transform 0.3s ease;
+}
+
+.contributions-section:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+/* Search Box */
+.search-container {
+  margin-bottom: 2rem;
+  display: flex;
+  /* New button layout */
+  gap: 12px;
+  align-items: center;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  /* Input takes majority of space */
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  color: #9aa0a6;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 16px 16px 16px 50px;
+  border: 2px solid #e2e8f0;
+  border-radius: 100px;
+  font-family: var(--font-family);
+  font-size: 1.05rem;
+  outline: none;
+  background-color: #f7fafc;
+  transition: all 0.3s ease;
+  color: var(--primary-color);
+}
+
+.search-input::placeholder {
+  color: #a0aec0;
+}
+
+.search-input:focus {
+  border-color: var(--primary-color);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(44, 82, 130, 0.1);
+}
+
+.search-btn {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  padding: 0 24px;
+  height: 50px;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  white-space: nowrap;
+  box-shadow:
+    0 8px 20px rgba(30, 58, 138, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.search-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+.search-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(30, 58, 138, 0.3);
+}
+
+.search-btn:hover::before {
+  left: 100%;
+}
+
+.search-btn:active {
+  transform: scale(0.96);
+}
+
+/* Demo Result Card */
+.demo-result-card {
+  background-color: #ebf8ff;
+  /* Friendly soft blue tint */
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid #bee3f8;
+  border-left: none;
+  /* Removed the hard/official left border */
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-result-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background-color: var(--primary-color);
+}
+
+.demo-badge {
+  display: inline-block;
+  background-color: #fff8e1;
+  /* Clearer warning bg */
+  color: #b7791f;
+  /* Darker gold text */
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 100px;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.result-details {
+  margin-bottom: 1.25rem;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #eee;
+  /* subtle separation */
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-row .label {
+  color: var(--secondary-text);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.result-row .value {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.result-status {
+  padding-top: 1rem;
+  border-top: 2px solid #eee;
+  color: #1b8e48;
+  /* Verified Green */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+}
+
+/* Disclaimer */
+.disclaimer-section {
+  text-align: center;
+  margin: 1rem 0 2rem 0;
+  padding: 0 16px;
+}
+
+.disclaimer-dignified p {
+  font-size: 0.9rem;
+  color: #8898aa;
+  font-style: normal;
+  /* Removed italic for cleaner look */
+  max-width: 90%;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Footer */
+.main-footer {
+  text-align: center;
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  /* Softer divider */
+  color: var(--secondary-text);
+  opacity: 0.8;
+  margin-top: auto;
+  /* Push to bottom if sparse content */
+}
+
+.main-footer h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--primary-color);
+  letter-spacing: -0.2px;
+}
+
+.main-footer p {
+  font-size: 0.9rem;
+}
+
+/* Official Card */
+.official-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border: 1px solid #f1f5f9;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.official-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-hover);
+}
+
+.official-role {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--secondary-text);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.official-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.official-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 8px 16px;
+  border-radius: 50px;
+  color: var(--accent-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid #eee;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.result-status.verified {
+  color: #059669;
+}
+
+.result-status.pending {
+  color: #d97706;
+}
+
+.result-status.not-verified {
+  color: #dc2626;
+}
+
+/* Sub-Navigation (Inside Views) */
+.sub-nav {
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.05);
+}
+
+.sub-nav-item {
+  flex: 1;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 12px 5px;
+  border-radius: 12px;
+  font-family: "Exo", sans-serif;
+  font-weight: 600;
+  color: var(--secondary-text);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  font-size: 0.9rem;
+}
+
+.sub-nav-item.active {
+  background: white;
+  color: var(--primary-color);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.08),
+    inset 0 2px 4px rgba(255, 255, 255, 1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.sub-nav-item:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.subview-section.hidden {
+  display: none;
+}
+
+.subview-section.active {
+  display: block;
+}
+
+/* QR Payment Card & Income Grid */
+.income-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 500px) {
+  .income-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.qr-payment-card {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+}
+
+.qr-payment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.qr-title {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  min-height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bank-details {
+  font-weight: 700;
+  color: #1e3a8a;
+  background: #eff6ff;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qr-instruction {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  line-height: 1.4;
+}
+
+/* Responsiveness overrides if needed */
+@media (max-width: 400px) {
+  .church-name {
+    font-size: 1.6rem;
+  }
+
+  .app-container {
+    padding: 0 16px;
+  }
+
+  .menu-item span {
+    display: none;
+    /* Hide text on very small screens, keep icons */
+  }
+
+  .menu-item {
+    padding: 12px;
+  }
+}
+
+/* News Ticker (Scrolling Events) */
+.ticker-wrapper {
+  background: var(--primary-color);
+  color: white;
+  padding: 0;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  height: 45px;
+}
+
+.ticker-label {
+  background: var(--accent-color);
+  height: 100%;
+  padding: 0 15px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  z-index: 2;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  color: #1e293b; /* Improved contrast for yellow bg */
+}
+
+.ticker-content-container {
+  overflow: hidden;
+  flex: 1;
+}
+
+.ticker-content {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll-ticker 20s linear infinite;
+  will-change: transform;
+}
+
+.ticker-item {
+  padding: 0 40px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ticker-item::after {
+  content: "•";
+  color: var(--accent-color);
+  margin-left: 40px;
+}
+
+@keyframes scroll-ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.ticker-wrapper:hover .ticker-content {
+  animation-play-state: paused;
+}
+
+/* Special Events Section & Cards */
+.special-events-section {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding: 0 10px;
+}
+
+.special-event-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 2rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 15px 35px -10px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+  border-left: 6px solid var(--primary-color);
+}
+
+.special-event-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(30, 58, 138, 0.03) 100%
+  );
+  pointer-events: none;
+}
+
+.special-event-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 25px 50px -12px rgba(30, 58, 138, 0.15);
+  background: rgba(255, 255, 255, 0.6);
+  border-left-width: 10px;
+  border-left-color: var(--accent-color);
+}
+
+.event-name {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.event-meta {
+  margin-bottom: 1.25rem;
+}
+
+.event-date {
+  font-size: 0.85rem;
+  color: #1e40af;
+  background: rgba(30, 58, 138, 0.1);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(30, 58, 138, 0.1);
+}
+
+.event-desc {
+  font-size: 1rem;
+  color: var(--secondary-text);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+  font-weight: 400;
+}
+
+.video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(220, 38, 38, 1) 0%,
+    rgba(185, 28, 28, 1) 100%
+  );
+  color: white;
+  padding: 10px 22px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 8px 15px rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.video-link i {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.video-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(220, 38, 38, 0.4);
+}
+
+.video-link:active {
+  transform: scale(0.96);
+}
+
+/* Extra Mobile Fine-Tuning */
+@media (max-width: 380px) {
+  .main-menu {
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .menu-item {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    gap: 4px;
+  }
+
+  .church-name {
+    font-size: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+}
+/* Merged Loader CSS */
+/* Loading Screen */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-gradient);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  transition: opacity 0.8s ease-out;
+  /* Smooth fade out */
+}
+
+#loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-content {
+  animation: fadeIn 1s ease-out;
+}
+
+.loader-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  animation: iconBounce 2s infinite ease-in-out;
+}
+
+.loader-text {
+  font-family: var(--font-family);
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-weight: 600;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes iconBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+/* SVG Icon Default Styles */
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+.search-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #9aa0a6;
+  position: absolute;
+  left: 18px;
+  pointer-events: none;
+}
+
+    </style>
+
+    <!-- Google Analytics (Placeholder) -->
+    <!-- Replace G-XXXXXXXXXX with your actual Measurement ID -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+</head>
+
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-content">
+            <i class="fa-solid fa-church loader-icon"></i>
+            <h2 class="loader-text">Karuvatta St. Mary’s Orthodox Suriyani Church</h2>
+            <div class="loader-spinner"></div>
+        </div>
+    </div>
+
+    <main class="app-container">
+
+        <!-- Language Toggle -->
+        <nav class="top-nav">
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang="en">English</button>
+                <span class="divider">|</span>
+                <button class="lang-btn" data-lang="ml">മലയാളം</button>
+            </div>
+        </nav>
+
+        <!-- Header Section -->
+        <header class="main-header">
+            <div class="logo-wrapper">
+                <div class="image-frame round" id="logo-frame"
+                    style="width: 80px; height: 80px; margin-bottom: 0; border: none;">
+                    <div class="placeholder-overlay">
+                        <svg class="icon"  style="font-size: 1.5rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l-8 5v15h16V7l-8-5z"/><path d="M12 2v10"/><path d="M9 7h6"/></svg>
+                        <span class="placeholder-label" style="font-size: 0.6rem;">logo</span>
+                    </div>
+                </div>
+            </div>
+            <h1 class="church-name" data-content-en="Karuvatta St. Mary’s Orthodox Suriyani Church"
+                data-content-ml="കരുവറ്റ സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി">
+                Karuvatta St. Mary’s Orthodox Suriyani Church
+            </h1>
+        </header>
+
+        <!-- Main Menu -->
+        <div class="main-menu">
+            <button class="menu-item active" data-target="home-view" data-text-en="Home" data-text-ml="പ്രധാനം">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l-8 5v15h16V7l-8-5z"/><path d="M12 2v10"/><path d="M9 7h6"/></svg>
+                <span data-content-en="Home" data-content-ml="പ്രധാനം">Home</span>
+            </button>
+
+            <button class="menu-item" data-target="members-view" data-text-en="Committee" data-text-ml="ഭരണ സമിതി">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span data-content-en="Committee" data-content-ml="ഭരണ സമിതി">Committee</span>
+            </button>
+
+            <button class="menu-item" data-target="contributions-view" data-text-en="Contributions"
+                data-text-ml="സംഭാവനകൾ">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span data-content-en="Contributions" data-content-ml="സംഭാവനകൾ">Contributions</span>
+            </button>
+
+            <button class="menu-item" data-target="services-view" data-text-en="Services" data-text-ml="സേവനങ്ങൾ">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span data-content-en="Services" data-content-ml="സേവനങ്ങൾ">Services</span>
+            </button>
+
+            <button class="menu-item" data-target="about-view" data-text-en="About" data-text-ml="കുറിച്ച്">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                <span data-content-en="About" data-content-ml="കുറിച്ച്">About</span>
+            </button>
+        </div>
+
+        <!-- HOME VIEW -->
+        <div id="home-view" class="view-section active">
+            <!-- Hero Image Placehodler -->
+            <div class="hero-image-wrapper">
+                <div class="image-frame" id="img1-frame">
+                    <div class="placeholder-overlay">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <span class="placeholder-label">img1: Hero Photo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News / Events Ticker -->
+            <div class="ticker-wrapper">
+                <div class="ticker-label" data-content-en="Events" data-content-ml="വാർത്തകൾ">Events</div>
+                <div class="ticker-content-container">
+                    <div class="ticker-content" id="ticker-content">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Introduction -->
+            <section class="intro-section">
+                <p data-content-en="This website helps members access essential information simply and respectfully."
+                    data-content-ml="പള്ളി അംഗങ്ങൾക്ക് അത്യാവശ്യ വിവരങ്ങൾ ലളിതമായും മാന്യമായും ലഭ്യമാക്കുന്നതിനായി തയ്യാറാക്കിയ വെബ്സൈറ്റാണിത്.">
+                    This website helps members access essential information simply and respectfully.
+                </p>
+
+                <!-- Quick Access Button (Friendly UX) -->
+                <button class="cta-button"
+                    onclick="document.querySelector('[data-target=\'contributions-view\']').click()">
+                    <span data-content-en="View Contributions" data-content-ml="സംഭാവനകൾ കാണുക">View
+                        Contributions</span>
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                </button>
+            </section>
+
+            <!-- Special Events Section (Dynamic) -->
+            <section class="special-events-section">
+                <h2 class="section-title" data-content-en="Special Events & Highlights"
+                    data-content-ml="പ്രത്യേക പരിപാടികൾ">
+                    Special Events & Highlights
+                </h2>
+                <div id="special-events-container">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTRIBUTIONS VIEW -->
+        <div id="contributions-view" class="view-section hidden">
+            <!-- Sub Navigation for Contributions -->
+            <div class="sub-nav">
+                <button class="sub-nav-item active" data-subtarget="search-subview" data-content-en="Search Status"
+                    data-content-ml="തിരയുക">
+                    Search Status
+                </button>
+                <button class="sub-nav-item" data-subtarget="qr-subview" data-content-en="Make Payment"
+                    data-content-ml="പണമടയ്ക്കുക">
+                    Make Payment
+                </button>
+            </div>
+
+            <!-- SUBVIEW: Search Status -->
+            <div id="search-subview" class="subview-section active">
+                <!-- Kudishika (Outstanding Contributions) Section -->
+                <section class="contributions-section">
+                    <h2 class="section-title" data-content-en="Outstanding Contributions"
+                        data-content-ml="കുടിശ്ശിക (Outstanding Contributions)">
+                        Outstanding Contributions
+                    </h2>
+
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            <input type="text" class="search-input" placeholder="Search by Name"
+                                data-placeholder-en="Search by Name" data-placeholder-ml="പേര് തിരയുക">
+                        </div>
+                        <button class="search-btn" data-content-en="Search" data-content-ml="തിരയുക">Search</button>
+                    </div>
+
+                    <!-- Dedicated Results Container -->
+                    <div id="search-results-container"></div>
+                </section>
+            </div>
+
+            <!-- SUBVIEW: QR Payments -->
+            <div id="qr-subview" class="subview-section hidden">
+                <section class="contributions-section">
+                    <h2 class="section-title" data-content-en="Payment QR Codes"
+                        data-content-ml="പണമടയ്ക്കാനുള്ള QR കോഡുകൾ">
+                        Payment QR Codes
+                    </h2>
+
+                    <div class="income-grid">
+                        <!-- 1. Sambhavana -->
+                        <div class="qr-payment-card">
+                            <h3 class="qr-title" data-content-en="Sambhavana (Monthly)"
+                                data-content-ml="മാസവരി / സംഭാവന">
+                                Sambhavana (Monthly)</h3>
+                            <div class="image-frame" id="qr_gen-frame"
+                                style="width: 160px; height: 160px; margin: 0 auto 1rem;">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                    <span class="placeholder-label">qr_gen</span>
+                                </div>
+                            </div>
+                            <div class="bank-details">Federal Bank</div>
+                            <p class="qr-instruction" data-content-en="Scan for General Contributions"
+                                data-content-ml="പൊതുവായ സംഭാവനകൾക്ക് സ്കാൻ ചെയ്യുക">Scan for General Contributions</p>
+                        </div>
+
+                        <!-- 2. Nercha -->
+                        <div class="qr-payment-card">
+                            <h3 class="qr-title" data-content-en="Nercha (Offering)" data-content-ml="നേർച്ച">Nercha
+                                (Offering)</h3>
+                            <div class="image-frame" id="qr_nercha-frame"
+                                style="width: 160px; height: 160px; margin: 0 auto 1rem;">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                    <span class="placeholder-label">qr_nercha</span>
+                                </div>
+                            </div>
+                            <div class="bank-details">Federal Bank</div>
+                            <p class="qr-instruction" data-content-en="Scan for Day Offerings"
+                                data-content-ml="നേർച്ചകൾക്കായി സ്കാൻ ചെയ്യുക">Scan for Day Offerings</p>
+                        </div>
+
+                        <!-- 3. Feast Contribution -->
+                        <div class="qr-payment-card">
+                            <h3 class="qr-title" data-content-en="Feast Contribution"
+                                data-content-ml="പെരുന്നാൾ നേർച്ച">
+                                Feast Contribution</h3>
+                            <div class="image-frame" id="qr_feast-frame"
+                                style="width: 160px; height: 160px; margin: 0 auto 1rem;">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                    <span class="placeholder-label">qr_feast</span>
+                                </div>
+                            </div>
+                            <div class="bank-details">Federal Bank</div>
+                            <p class="qr-instruction" data-content-en="Scan for Feast Specials"
+                                data-content-ml="പെരുന്നാൾ സംഭാവനകൾക്ക് സ്കാൻ ചെയ്യുക">Scan for Feast Specials</p>
+                        </div>
+
+                        <!-- 4. Project Fund -->
+                        <div class="qr-payment-card">
+                            <h3 class="qr-title" data-content-en="Special Project Fund"
+                                data-content-ml="പ്രോജക്ട് ഫണ്ട്">
+                                Special Project Fund</h3>
+                            <div class="image-frame" id="qr_project-frame"
+                                style="width: 160px; height: 160px; margin: 0 auto 1rem;">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                    <span class="placeholder-label">qr_project</span>
+                                </div>
+                            </div>
+                            <div class="bank-details">Federal Bank</div>
+                            <p class="qr-instruction" data-content-en="Scan for Construction/Projects"
+                                data-content-ml="നിർമ്മാണ പ്രവർത്തനങ്ങൾക്കായി സ്കാൻ ചെയ്യുക">Scan for
+                                Construction/Projects
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Disclaimer (Moved inside view) -->
+            <section class="disclaimer-section">
+                <div class="disclaimer-dignified">
+                    <p data-content-en="Note: This information is shown only for administrative clarity. Corrections can be requested through the church office."
+                        data-content-ml="കുറിപ്പ്: ഭരണപരമായ വ്യക്തതയ്ക്കായി മാത്രമാണ് ഈ വിവരങ്ങൾ നൽകുന്നത്. തിരുത്തലുകൾ പള്ളി ഓഫീസ് വഴി അറിയിക്കാവുന്നതാണ്.">
+                        Note: This information is shown only for administrative clarity. Corrections can be requested
+                        through the church office.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- COMMITTEE VIEW (Renamed from Members) -->
+        <div id="members-view" class="view-section hidden">
+            <section class="contributions-section">
+                <!-- Title removed as requested -->
+                <!-- Vicar Card -->
+                <div class="official-card">
+                    <div class="official-role" data-content-en="Vicar & President"
+                        data-content-ml="വികാരി & പ്രസിഡന്റ്">
+                        Vicar & President</div>
+                    <div class="official-name">Rev. Fr. Shiju Baby</div>
+                </div>
+
+                <!-- Trustee Card -->
+                <div class="official-card">
+                    <div class="official-role" data-content-en="Church Trustee" data-content-ml="കൈക്കാരൻ (Trustee)">
+                        Church Trustee</div>
+                    <div class="official-name">Mr. Thomas John</div>
+                </div>
+
+                <!-- Secretary Card -->
+                <div class="official-card">
+                    <div class="official-role" data-content-en="Church Secretary" data-content-ml="സെക്രട്ടറി">Church
+                        Secretary</div>
+                    <div class="official-name">Mr. Philip Varghese</div>
+                </div>
+
+                <div class="demo-badge" style="margin-top: 2rem; display: block; text-align: center;"
+                    data-content-en="Sample Names / Demo Only" data-content-ml="മാതൃക പേരുകൾ / Demo Only">
+                    Sample Names / Demo Only
+                </div>
+            </section>
+        </div>
+
+        <!-- SERVICES VIEW -->
+        <div id="services-view" class="view-section hidden">
+            <!-- Sub Navigation for Services -->
+            <div class="sub-nav">
+                <button class="sub-nav-item active" data-subtarget="church-mgmt-subview"
+                    data-content-en="Church Management" data-content-ml="സഭാ മാനേജ്‌മെന്റ്">
+                    Church Management
+                </button>
+                <button class="sub-nav-item" data-subtarget="event-mgmt-subview" data-content-en="Event Management"
+                    data-content-ml="ഇവന്റ് മാനേജ്‌മെന്റ്">
+                    Event Management
+                </button>
+            </div>
+
+            <!-- SUBVIEW: Church Management -->
+            <div id="church-mgmt-subview" class="subview-section active">
+                <section class="contributions-section">
+                    <h2 class="section-title" data-content-en="Church Administration Services"
+                        data-content-ml="സഭാ ഭരണ സേവനങ്ങൾ">
+                        Church Administration Services
+                    </h2>
+                    <div class="income-grid">
+                        <!-- Member Portal -->
+                        <div class="official-card">
+                            <div class="image-frame" id="img9-frame">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    <span class="placeholder-label">img9: Portal</span>
+                                </div>
+                            </div>
+                            <div class="official-role" data-content-en="Member Portal" data-content-ml="മെമ്പർ പോർട്ടൽ">
+                                Member Portal</div>
+                            <div class="official-name">Parish Digital Desk</div>
+                            <p style="font-size: 0.9rem; color: var(--secondary-text); margin-top: 5px;"
+                                data-content-en="Access member records and financial history."
+                                data-content-ml="അംഗങ്ങളുടെ വിവരങ്ങളും സാമ്പത്തിക ചരിത്രവും പരിശോധിക്കാം.">Access member
+                                records and financial history.</p>
+                        </div>
+
+                        <!-- Hall Booking -->
+                        <div class="official-card">
+                            <div class="image-frame" id="img10-frame">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+                                    <span class="placeholder-label">img10: Hall</span>
+                                </div>
+                            </div>
+                            <div class="official-role" data-content-en="Parish Hall Booking"
+                                data-content-ml="ഹാൾ ബുക്കിംഗ്">Parish Hall Booking</div>
+                            <div class="official-name">Administrative Office</div>
+                            <p style="font-size: 0.9rem; color: var(--secondary-text); margin-top: 5px;"
+                                data-content-en="Reserve church hall for family events."
+                                data-content-ml="കുടുംബ പരിപാടികൾക്കായി പള്ളി ഹാൾ ബുക്ക് ചെയ്യുക.">Reserve church hall
+                                for family events.</p>
+                        </div>
+
+                        <!-- Certificates -->
+                        <div class="official-card">
+                            <div class="image-frame" id="img11-frame">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+                                    <span class="placeholder-label">img11: Docs</span>
+                                </div>
+                            </div>
+                            <div class="official-role" data-content-en="Certificate Requests"
+                                data-content-ml="സർട്ടിഫിക്കറ്റ് അപേക്ഷകൾ">Certificate Requests</div>
+                            <div class="official-name">Secretariat Office</div>
+                            <p style="font-size: 0.9rem; color: var(--secondary-text); margin-top: 5px;"
+                                data-content-en="Request baptism, marriage, or membership letters."
+                                data-content-ml="മാമോദീസ, വിവാഹം, അംഗത്വ സർട്ടിഫിക്കറ്റുകൾക്കായി അപേക്ഷിക്കുക.">Request
+                                baptism, marriage, or membership letters.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SUBVIEW: Event Management -->
+            <div id="event-mgmt-subview" class="subview-section hidden">
+                <section class="contributions-section">
+                    <h2 class="section-title" data-content-en="Event Management Services"
+                        data-content-ml="ഇവന്റ് മാനേജ്‌മെന്റ് സേവനങ്ങൾ">
+                        Event Management Services
+                    </h2>
+
+                    <div class="income-grid">
+                        <!-- Catering -->
+                        <div class="official-card">
+                            <div class="image-frame" id="img6-frame">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
+                                    <span class="placeholder-label">img6: Catering</span>
+                                </div>
+                            </div>
+                            <div class="official-role" data-content-en="Catering Service"
+                                data-content-ml="കാറ്ററിംഗ് സർവീസ്">Catering Service</div>
+                            <div class="official-name">St. Mary’s Catering</div>
+                            <p style="font-size: 0.9rem; color: var(--secondary-text); margin-top: 5px;"
+                                data-content-en="Premium traditional food for church events."
+                                data-content-ml="പള്ളിയിലെ വിശേഷങ്ങൾക്ക് രുചികരമായ ഭക്ഷണം.">Premium traditional food for
+                                church events.</p>
+                        </div>
+
+                        <!-- Lights & Sounds -->
+                        <div class="official-card">
+                            <div class="image-frame" id="img7-frame">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                                    <span class="placeholder-label">img7: Lights & Sounds</span>
+                                </div>
+                            </div>
+                            <div class="official-role" data-content-en="Lights & Sounds"
+                                data-content-ml="ലൈറ്റ് & സൗണ്ട്">
+                                Lights & Sounds</div>
+                            <div class="official-name">Parish Audio Systems</div>
+                            <p style="font-size: 0.9rem; color: var(--secondary-text); margin-top: 5px;"
+                                data-content-en="Professional audio and lighting solutions."
+                                data-content-ml="പ്രൊഫഷണൽ ശബ്ദവും വെളിച്ചവും.">Professional audio and lighting
+                                solutions.
+                            </p>
+                        </div>
+
+                        <!-- Photography/Camera -->
+                        <div class="official-card">
+                            <div class="image-frame" id="img8-frame">
+                                <div class="placeholder-overlay">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                                    <span class="placeholder-label">img8: Photography</span>
+                                </div>
+                            </div>
+                            <div class="official-role" data-content-en="Camera & Video"
+                                data-content-ml="ക്യാമറ & വീഡിയോ">
+                                Camera & Video</div>
+                            <div class="official-name">Karuvatta Digital Arts</div>
+                            <p style="font-size: 0.9rem; color: var(--secondary-text); margin-top: 5px;"
+                                data-content-en="Capturing your sacred moments forever."
+                                data-content-ml="നിങ്ങളുടെ പുണ്യമുഹൂർത്തങ്ങൾ എന്നേക്കുമായി പകർത്തുന്നു.">Capturing your
+                                sacred moments forever.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ABOUT VIEW -->
+        <div id="about-view" class="view-section hidden">
+            <section class="contributions-section"> <!-- Reusing card style for consistency -->
+                <h2 class="section-title" data-content-en="About Our Church" data-content-ml="പള്ളിയെക്കുറിച്ച്">
+                    About Our Church
+                </h2>
+
+                <div style="text-align: center; color: var(--secondary-text); line-height: 1.8;">
+                    <p data-content-en="Karuvatta St. Mary’s Orthodox Suriyani Church stands as a beacon of faith and tradition. Established with the mission to serve the community and uphold the values of the Orthodox faith."
+                        data-content-ml="വിശ്വാസത്തിൻ്റെയും പാരമ്പര്യത്തിൻ്റെയും വിളക്കുമാടമായി കരുവറ്റ സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി നിലകൊള്ളുന്നു. സമൂഹത്തെ സേവിക്കുന്നതിനും ഓർത്തഡോക്സ് വിശ്വാസത്തിൻ്റെ മൂല്യങ്ങൾ ഉയർത്തിപ്പിടിക്കുന്നതിനുമാണ് ഇത് സ്ഥാപിതമായത്.">
+                        Karuvatta St. Mary’s Orthodox Suriyani Church stands as a beacon of faith and tradition.
+                        Established with the mission to serve the community and uphold the values of the Orthodox faith.
+                    </p>
+                    <br>
+                    <div class="image-frame" id="img5-frame">
+                        <div class="placeholder-overlay">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            <span class="placeholder-label">img5: History Photo</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <h3 data-content-en="Karuvatta St. Mary’s Orthodox Suriyani Church"
+                data-content-ml="കരുവറ്റ സെന്റ് മേരീസ് ഓർത്തഡോക്സ് സുറിയാനി പള്ളി">
+                Karuvatta St. Mary’s Orthodox Suriyani Church
+            </h3>
+            <p data-content-en="Church Office" data-content-ml="പള്ളി ഓഫീസ്">Church Office</p>
+        </footer>
+
+    </main>
+
+    <script src="js/images.js?v=3" defer></script>
+    <script src="js/script.js?v=3" defer></script>
+</body>
+
+</html>

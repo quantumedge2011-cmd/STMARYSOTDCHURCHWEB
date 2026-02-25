@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://stmaryskaruvatta.com/sitemap.xml

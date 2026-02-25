@@ -1,0 +1,76 @@
+{
+    "committee": [
+        {
+            "role_en": "Vicar & President",
+            "role_ml": "വികാരി & പ്രസിഡന്റ്",
+            "name": "Rev. Fr. Shiju Baby",
+            "phone": "+91 0000000000"
+        },
+        {
+            "role_en": "Church Trustee",
+            "role_ml": "കൈക്കാരൻ (Trustee)",
+            "name": "Mr. Thomas John",
+            "phone": "+91 0000000000"
+        },
+        {
+            "role_en": "Church Secretary",
+            "role_ml": "സെക്രട്ടറി",
+            "name": "Mr. Philip Varghese",
+            "phone": "+91 0000000000"
+        }
+    ],
+    "contributions": [
+        {
+            "name": "Joseph Mathew",
+            "family_id": "mp-001",
+            "status_en": "Verified",
+            "status_ml": "പരിശോധിച്ചു"
+        },
+        {
+            "name": "Thomas Varghese",
+            "family_id": "mp-002",
+            "status_en": "Inactive",
+            "status_ml": "പരിശോധിച്ചിട്ടില്ല"
+        },
+        {
+            "name": "Mathew Philip",
+            "family_id": "mp-003",
+            "status_en": "Verified",
+            "status_ml": "പരിശോധിച്ചു"
+        }
+    ],
+    "events_ticker": [
+        {
+            "en": "Sunday Holy Qurbana at 6:30 AM",
+            "ml": "ഞായറാഴ്ച വിശുദ്ധ കുർബാന രാവിലെ 6:30 ന്"
+        },
+        {
+            "en": "Wednesday Evening Prayer at 6:00 PM",
+            "ml": "ബുധനാഴ്ച വൈകുന്നേരത്തെ നമസ്കാരം വൈകിട്ട് 6:00 ന്"
+        },
+        {
+            "en": "Friday Holy Qurbana at 7:00 AM",
+            "ml": "വെള്ളിയാഴ്ച വിശുദ്ധ കുർബാന രാവിലെ 7:00 ന്"
+        }
+    ],
+    "special_events": [
+        {
+            "title_en": "Parish Feast 2026",
+            "title_ml": "പെരുന്നാൾ 2026",
+            "date_en": "Jan 15, 2026",
+            "date_ml": "ജനുവരി 15, 2026",
+            "video_url": "https://www.youtube.com/watch?v=example1",
+            "desc_en": "Watch the highlights of our annual parish feast celebrations.",
+            "desc_ml": "വാർഷിക പെരുന്നാൾ ആഘോഷങ്ങളുടെ പ്രധാന ഭാഗങ്ങൾ കാണുക."
+        },
+        {
+            "title_en": "Christmas Carol 2025",
+            "title_ml": "ക്രിസ്മസ് കരോൾ 2025",
+            "date_en": "Dec 23, 2025",
+            "date_ml": "ഡിസംബർ 23, 2025",
+            "video_url": "https://www.youtube.com/watch?v=example2",
+            "desc_en": "Joint carol service of our parish families.",
+            "desc_ml": "ഇടവക കുടുംബങ്ങളുടെ സംയുക്ത കരോൾ സർവീസ്‌."
+        }
+    ]
+}

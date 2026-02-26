@@ -2,4 +2,5 @@
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Cross-Origin-Opener-Policy: same-origin
   Content-Security-Policy: default-src 'self' 'unsafe-inline' https: data: blob:; img-src 'self' https: data:;
